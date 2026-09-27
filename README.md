@@ -1,2 +1,2 @@
-# skillzeno-internship
-skillzeno intern task 1
+# skillzeno internship
+responsive professional portfolio
