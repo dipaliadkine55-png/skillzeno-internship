@@ -1,0 +1,19 @@
+Browser
+   │
+   │ prompt
+   ▼
+Next.js frontend
+   │
+   │ POST /api/chat
+   ▼
+Server-side API route
+   │
+   │ OPENAI_API_KEY
+   ▼
+OpenAI Responses API
+   │
+   ▼
+AI response
+   │
+   ▼
+Browser

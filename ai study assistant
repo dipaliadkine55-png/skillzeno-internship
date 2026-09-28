@@ -1,0 +1,48 @@
+# AI Study Assistant
+
+## Overview
+
+AI Study Assistant is a web application that uses an AI API
+to help students understand academic topics and generate
+useful study material.
+
+## Features
+
+- Ask questions using natural language
+- AI-generated explanations
+- Input validation
+- Loading state
+- Error handling
+- Empty-response handling
+- Responsive interface
+- Secure server-side API integration
+
+## Technologies
+
+- Next.js
+- React
+- TypeScript
+- OpenAI API
+- CSS
+
+## Environment Variables
+
+Create a `.env.local` file:
+
+OPENAI_API_KEY=your_api_key_here
+
+Never commit this file to GitHub.
+
+## Running the project
+
+npm install
+npm run dev
+
+Then open:
+
+http://localhost:3000
+
+## Security
+
+The API key is accessed only from the server-side API route.
+It is never exposed in frontend JavaScript or sent to the browser.

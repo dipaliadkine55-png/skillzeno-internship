@@ -1,0 +1,29 @@
+                    AI Study Assistant
+
+┌──────────────────┐
+│   React Frontend │
+│                  │
+│ Prompt textarea  │
+│ Generate button  │
+│ Loading state    │
+│ Error messages   │
+│ AI response      │
+└────────┬─────────┘
+         │ POST /api/chat
+         ▼
+┌──────────────────┐
+│ Node.js / Express│
+│     Backend      │
+│                  │
+│ Validate input   │
+│ Read .env key    │
+│ Call AI API      │
+└────────┬─────────┘
+         │
+         │ API request
+         ▼
+┌──────────────────┐
+│    AI API        │
+│                  │
+│ Generate answer  │
+└──────────────────┘
