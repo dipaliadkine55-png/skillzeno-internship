@@ -1,819 +1,945 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Responsive personal portfolio website">
-    <title>My Portfolio</title>
-
+    <title>Student Productivity Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* ---------- RESET ---------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.6;
-            color: #222;
-            background: #f8f9fa;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        /* ---------- NAVBAR ---------- */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #111827;
-            color: white;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        nav {
-            max-width: 1100px;
-            margin: auto;
-            height: 70px;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #38bdf8;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: white;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #38bdf8;
-        }
-
-        .menu-btn {
-            display: none;
-            font-size: 28px;
-            cursor: pointer;
-        }
-
-        /* ---------- COMMON ---------- */
-        section {
-            padding: 90px 20px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 45px;
-        }
-
-        .section-title h2 {
-            font-size: 2rem;
-            color: #111827;
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: #6b7280;
-        }
-
-        /* ---------- HERO ---------- */
-        #home {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #0f172a, #1e3a8a);
-            color: white;
-            padding-top: 100px;
-        }
-
-        .hero-content {
-            max-width: 1100px;
-            width: 100%;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 7vw, 4.5rem);
-            margin-bottom: 10px;
-        }
-
-        .hero-content h2 {
-            color: #38bdf8;
-            font-size: clamp(1.3rem, 3vw, 2rem);
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            max-width: 650px;
-            color: #dbeafe;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            border-radius: 6px;
-            background: #38bdf8;
-            color: #0f172a;
-            font-weight: bold;
-            margin-right: 10px;
-            border: 2px solid #38bdf8;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: transparent;
-            color: #38bdf8;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #38bdf8;
-        }
-
-        /* ---------- ABOUT ---------- */
-        #about {
-            background: white;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .profile-box {
-            width: 220px;
-            height: 220px;
-            margin: auto;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #38bdf8, #2563eb);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 4rem;
-            font-weight: bold;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .about-text p {
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        /* ---------- SKILLS ---------- */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-
-        .skill {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .progress {
-            height: 10px;
-            background: #e5e7eb;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #38bdf8, #2563eb);
-            border-radius: 10px;
-        }
-
-        /* ---------- PROJECTS ---------- */
-        #projects {
-            background: white;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .project-card {
-            background: #f8fafc;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .project-image {
-            height: 160px;
-            background: linear-gradient(135deg, #2563eb, #38bdf8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .project-info {
-            padding: 20px;
-        }
-
-        .project-info h3 {
-            margin-bottom: 10px;
-        }
-
-        .project-info p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        /* ---------- EXPERIENCE ---------- */
-        .timeline {
-            max-width: 800px;
-            margin: auto;
-        }
-
-        .timeline-item {
-            background: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-left: 5px solid #2563eb;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-        }
-
-        .timeline-item h3 {
-            color: #111827;
-        }
-
-        .timeline-item span {
-            display: block;
-            color: #2563eb;
-            margin: 5px 0 10px;
-            font-weight: bold;
-        }
-
-        /* ---------- CONTACT ---------- */
-        #contact {
-            background: #eef2ff;
-        }
-
-        .contact-form {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 5px;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: #2563eb;
-        }
-
-        .form-group textarea {
-            min-height: 140px;
-            resize: vertical;
-        }
-
-        .error {
-            color: #dc2626;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: block;
-        }
-
-        #success-message {
-            color: #16a34a;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        /* ---------- FOOTER ---------- */
-        footer {
-            background: #111827;
-            color: white;
-            text-align: center;
-            padding: 25px 20px;
-        }
-
-        .social-links {
-            margin-top: 10px;
-        }
-
-        .social-links a {
-            margin: 0 8px;
-            color: #38bdf8;
-        }
-
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: block;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: #111827;
-                flex-direction: column;
-                text-align: center;
-                padding: 20px 0;
-                gap: 0;
-                display: none;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links li {
-                padding: 12px 0;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-content {
-                text-align: center;
-            }
-
-            .hero-content p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            section {
-                padding: 70px 15px;
-            }
-
-            .profile-box {
-                width: 170px;
-                height: 170px;
-                font-size: 3rem;
-            }
-
-            .btn {
-                margin-bottom: 10px;
-            }
-
-            .contact-form {
-                padding: 20px;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
     </style>
 </head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-full transition-colors duration-200">
+    <div id="app" class="min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 p-5 flex flex-col justify-between shrink-0">
+            <div>
+                <!-- Brand Header -->
+                <div class="flex items-center justify-between md:justify-start gap-3 mb-8">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        <i class="fa-solid fa-[#GraduationCap]"></i>
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight">FocusFlow</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Student Dashboard</p>
+                    </div>
+                    <button id="themeToggleMobile" class="md:hidden p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                    </button>
+                </div>
 
-<body>
-
-    <!-- NAVIGATION -->
-    <header>
-        <nav>
-            <a href="#home" class="logo">MyPortfolio</a>
-
-            <div class="menu-btn" id="menuBtn">☰</div>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-
-    <!-- HERO -->
-    <section id="home">
-        <div class="hero-content">
-            <h1>Hello, I'm Your Name</h1>
-            <h2>Web Developer</h2>
-
-            <p>
-                I create responsive, modern and user-friendly websites
-                using HTML, CSS, JavaScript and other web technologies.
-            </p>
-
-            <a href="#projects" class="btn">View My Work</a>
-            <a href="#contact" class="btn btn-outline">Contact Me</a>
-        </div>
-    </section>
-
-
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>About Me</h2>
-                <p>Get to know me</p>
+                <!-- Navigation Links -->
+                <nav class="space-y-1.5">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all bg-sky-50 dark:bg-sky-950/50 text-sky-600 dark:text-sky-400">
+                        <i class="fa-solid fa-chart-pie w-5"></i>
+                        Dashboard Overview
+                    </button>
+                    <button onclick="switchTab('tasks')" id="nav-tasks" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50">
+                        <i class="fa-solid fa-list-check w-5"></i>
+                        Task Planner
+                    </button>
+                    <button onclick="switchTab('goals')" id="nav-goals" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50">
+                        <i class="fa-solid fa-bullseye w-5"></i>
+                        Daily Goals
+                    </button>
+                    <button onclick="switchTab('notes')" id="nav-notes" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50">
+                        <i class="fa-solid fa-note-sticky w-5"></i>
+                        Quick Notes
+                    </button>
+                </nav>
             </div>
 
-            <div class="about-grid">
-
-                <div class="profile-box">
-                    YN
+            <!-- Dark Mode Toggle & Footer -->
+            <div class="pt-6 border-t border-slate-200 dark:border-slate-700 space-y-3">
+                <button id="themeToggleDesktop" class="hidden md:flex w-full items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                        <span>Appearance</span>
+                    </span>
+                    <span class="text-xs bg-slate-200 dark:bg-slate-700 px-2 py-0.5 rounded-md text-slate-600 dark:text-slate-300 dark:hidden">Light</span>
+                    <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300 hidden dark:inline">Dark</span>
+                </button>
+                
+                <div class="text-xs text-slate-400 dark:text-slate-500 px-1 text-center md:text-left">
+                    Local Data Synchronized <i class="fa-solid fa-circle-check text-emerald-500 ml-1"></i>
                 </div>
-
-                <div class="about-text">
-                    <h3>I'm a Passionate Web Developer</h3>
-
-                    <p>
-                        I am a motivated developer interested in creating
-                        beautiful and functional websites. I enjoy learning
-                        new technologies and solving real-world problems
-                        through code.
-                    </p>
-
-                    <p>
-                        My goal is to build websites that provide a great
-                        user experience across desktop, tablet and mobile
-                        devices.
-                    </p>
-                </div>
-
             </div>
-        </div>
-    </section>
+        </aside>
+!-- Main Content View Container -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl mx-auto custom-scrollbar">
+            
+            <!-- VIEW 1: DASHBOARD OVERVIEW -->
+            <div id="view-dashboard" class="space-y-6">
+                <!-- Welcome Banner -->
+                <div class="bg-gradient-to-r from-sky-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-2xl sm:text-3xl font-bold mb-2">Welcome Back, Scholar! 🚀</h2>
+                        <p class="text-sky-100 text-sm sm:text-base max-w-xl">Stay on top of your assignments, exams, and daily focus items. Here is your productivity summary for today.</p>
+                    </div>
+                    <div class="absolute -right-8 -bottom-8 opacity-10 text-white text-9xl pointer-events-none">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                </div>
 
+                <!-- Stats Overview Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-tasks"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Total Tasks</p>
+                            <h3 id="stat-total-tasks" class="text-2xl font-bold">0</h3>
+                        </div>
+                    </div>
 
-    <!-- SKILLS -->
-    <section id="skills">
-        <div class="container">
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Completed</p>
+                            <h3 id="stat-completed-tasks" class="text-2xl font-bold">0</h3>
+                        </div>
+                    </div>
 
-            <div class="section-title">
-                <h2>My Skills</h2>
-                <p>Technologies I work with</p>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Pending Tasks</p>
+                            <h3 id="stat-pending-tasks" class="text-2xl font-bold">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Completion Rate</p>
+                            <h3 id="stat-rate" class="text-2xl font-bold">0%</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Analytics & Urgent Deadlines -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Progress Chart Card -->
+                    <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-donut text-sky-500"></i> Overall Task Breakdown
+                            </h3>
+                            <span class="text-xs text-slate-400">Live Status</span>
+                        </div>
+
+                        <!-- Progress Bar & Analytics Breakdown -->
+                        <div class="space-y-6 my-auto">
+                            <div>
+                                <div class="flex justify-between text-sm font-medium mb-2">
+                                    <span>Goal Progress Tracker</span>
+                                    <span id="dashboard-progress-text" class="text-sky-600 dark:text-sky-400 font-semibold">0% Completed</span>
+                                </div>
+                                <div class="w-full bg-slate-100 dark:bg-slate-700 h-4 rounded-full overflow-hidden p-0.5">
+                                    <div id="dashboard-progress-bar" class="bg-gradient-to-r from-sky-500 to-indigo-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                                    <span class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Homework</span>
+                                    <span id="cat-count-homework" class="font-bold text-slate-800 dark:text-slate-200">0</span>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                                    <span class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Project</span>
+                                    <span id="cat-count-project" class="font-bold text-slate-800 dark:text-slate-200">0</span>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                                    <span class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Exam Prep</span>
+                                    <span id="cat-count-exam" class="font-bold text-slate-800 dark:text-slate-200">0</span>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                                    <span class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Personal</span>
+                                    <span id="cat-count-personal" class="font-bold text-slate-800 dark:text-slate-200">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Urgent Deadlines Widget -->
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 mb-4">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Priority Deadlines
+                        </h3>
+                        <div id="urgent-deadlines-list" class="space-y-3 flex-1 overflow-y-auto max-h-[220px] custom-scrollbar pr-1">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="skills-grid">
-
-                <div class="skill">
-                    <div class="skill-header">
-                        <span>HTML</span>
-                        <span>90%</span>
+<!-- VIEW 2: TASK PLANNER -->
+            <div id="view-tasks" class="hidden space-y-6">
+                <!-- Header & Controls -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold">Task Manager</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Organize and track your study workload</p>
                     </div>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:90%"></div>
+                    <button onclick="openTaskModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-medium shadow-sm transition-all text-sm">
+                        <i class="fa-solid fa-plus"></i> Add New Task
+                    </button>
+                </div>
+
+                <!-- Filters & Search Toolbar -->
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                    <!-- Search Input -->
+                    <div class="relative sm:col-span-1 lg:col-span-2">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="text" id="task-search" oninput="renderTasks()" placeholder="Search tasks by title..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    </div>
+
+                    <!-- Filter Category -->
+                    <div>
+                        <select id="task-filter-category" onchange="renderTasks()" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="All">All Categories</option>
+                            <option value="Homework">Homework</option>
+                            <option value="Project">Project</option>
+                            <option value="Exam Prep">Exam Prep</option>
+                            <option value="Personal">Personal</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter Priority -->
+                    <div>
+                        <select id="task-filter-priority" onchange="renderTasks()" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <option value="All">All Priorities</option>
+                            <option value="High">High Priority</option>
+                            <option value="Medium">Medium Priority</option>
+                            <option value="Low">Low Priority</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="skill">
-                    <div class="skill-header">
-                        <span>CSS</span>
-                        <span>85%</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:85%"></div>
-                    </div>
+                <!-- Task Cards List -->
+                <div id="tasks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Dynamic tasks -->
                 </div>
-
-                <div class="skill">
-                    <div class="skill-header">
-                        <span>JavaScript</span>
-                        <span>75%</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:75%"></div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <div class="skill-header">
-                        <span>Git & GitHub</span>
-                        <span>80%</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:80%"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-    <!-- PROJECTS -->
-    <section id="projects">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>My Projects</h2>
-                <p>Some of my recent work</p>
-            </div>
-
-            <div class="projects-grid">
-
-                <div class="project-card">
-                    <div class="project-image">01</div>
-                    <div class="project-info">
-                        <h3>Portfolio Website</h3>
-                        <p>
-                            A responsive personal portfolio created using
-                            HTML, CSS and JavaScript.
-                        </p>
-                        <a href="#" class="btn">View Project</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">02</div>
-                    <div class="project-info">
-                        <h3>To-Do App</h3>
-                        <p>
-                            A JavaScript-based task management application
-                            with an interactive user interface.
-                        </p>
-                        <a href="#" class="btn">View Project</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">03</div>
-                    <div class="project-info">
-                        <h3>Landing Page</h3>
-                        <p>
-                            A modern and responsive landing page designed
-                            for desktop and mobile devices.
-                        </p>
-                        <a href="#" class="btn">View Project</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-    <!-- EDUCATION / EXPERIENCE -->
-    <section id="experience">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Education & Experience</h2>
-                <p>My professional journey</p>
-            </div>
-
-            <div class="timeline">
-
-                <div class="timeline-item">
-                    <h3>Bachelor's Degree</h3>
-                    <span>2022 - 2025</span>
-                    <p>
-                        Completed my degree with a focus on computer science,
-                        programming and web technologies.
-                    </p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3>Web Development Internship</h3>
-                    <span>2025 - 2026</span>
-                    <p>
-                        Worked on responsive websites and gained practical
-                        experience with HTML, CSS and JavaScript.
-                    </p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3>Frontend Developer</h3>
-                    <span>2026 - Present</span>
-                    <p>
-                        Developing modern and responsive web applications
-                        with a focus on usability and performance.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-    <!-- CONTACT -->
-    <section id="contact">
-        <div class="container">
-
-            <div class="section-title">
-                <h2>Contact Me</h2>
-                <p>Let's work together</p>
             </div>
 
-            <form class="contact-form" id="contactForm">
-
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" placeholder="Enter your name">
-                    <span class="error" id="nameError"></span>
+            <!-- VIEW 3: DAILY GOALS -->
+            <div id="view-goals" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold">Daily Focus Goals</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Set small achievable targets for today</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="new-goal-input" placeholder="e.g., Read 20 pages of History..." class="px-4 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 w-64">
+                        <button onclick="addGoal()" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-medium text-sm transition-all shrink-0">
+                            Add Goal
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email">
-                    <span class="error" id="emailError"></span>
+                <!-- Goals Checklist Box -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
+                        <div>
+                            <h3 class="font-bold">Today's Checklists</h3>
+                            <p class="text-xs text-slate-400">Track habits and small routine goals</p>
+                        </div>
+                        <span id="goals-progress-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+                            0 / 0 Completed
+                        </span>
+                    </div>
+
+                    <div id="goals-list" class="space-y-2">
+                        <!-- Dynamic Goals -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: QUICK NOTES -->
+            <div id="view-notes" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold">Quick Notes & Scratchpad</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Jot down quick thoughts, formulas, or reminders</p>
+                    </div>
+                    <button onclick="openNoteModal()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-medium shadow-sm transition-all text-sm">
+                        <i class="fa-solid fa-plus"></i> New Sticky Note
+                    </button>
                 </div>
 
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" placeholder="Enter your message"></textarea>
-                    <span class="error" id="messageError"></span>
+                <!-- Sticky Notes Grid -->
+                <div id="notes-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Dynamic Notes -->
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL 1: ADD / EDIT TASK -->
+    <div id="task-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4 transform transition-all">
+            <div class="flex items-center justify-between">
+                <h3 id="modal-task-title" class="font-bold text-lg">Add New Task</h3>
+                <button onclick="closeTaskModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <form id="task-form" onsubmit="saveTask(event)" class="space-y-4">
+                <input type="hidden" id="task-id">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Task Title</label>
+                    <input type="text" id="task-title-input" required placeholder="e.g. Complete Calculus Chapter 4" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
                 </div>
 
-                <button type="submit" class="btn">Send Message</button>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Category</label>
+                        <select id="task-category-input" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="Homework">Homework</option>
+                            <option value="Project">Project</option>
+                            <option value="Exam Prep">Exam Prep</option>
+                            <option value="Personal">Personal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Priority</label>
+                        <select id="task-priority-input" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                            <option value="High">High</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                </div>
 
-                <p id="success-message"></p>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Deadline Date</label>
+                    <input type="date" id="task-deadline-input" required class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                </div>
 
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Description / Notes</label>
+                    <textarea id="task-desc-input" rows="3" placeholder="Additional instructions, links, or notes..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none custom-scrollbar"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeTaskModal()" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium">Save Task</button>
+                </div>
             </form>
         </div>
-    </section>
+    </div>
 
+    <!-- MODAL 2: ADD / EDIT NOTE -->
+    <div id="note-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 id="modal-note-title" class="font-bold text-lg">New Sticky Note</h3>
+                <button onclick="closeNoteModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <form id="note-form" onsubmit="saveNote(event)" class="space-y-4">
+                <input type="hidden" id="note-id">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Note Title</label>
+                    <input type="text" id="note-title-input" required placeholder="Quick title..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 Your Name. All Rights Reserved.</p>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Color Tag</label>
+                    <div class="flex gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="yellow" checked class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-amber-100 border-2 border-amber-300 peer-checked:ring-2 peer-checked:ring-amber-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="blue" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-sky-100 border-2 border-sky-300 peer-checked:ring-2 peer-checked:ring-sky-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="emerald" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 border-2 border-emerald-300 peer-checked:ring-2 peer-checked:ring-emerald-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="purple" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 border-2 border-purple-300 peer-checked:ring-2 peer-checked:ring-purple-500"></div>
+                        </label>
+                    </div>
+                </div>
 
-        <div class="social-links">
-            <a href="#">GitHub</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">Instagram</a>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Content</label>
+                    <textarea id="note-content-input" rows="4" required placeholder="Type your note content here..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none custom-scrollbar"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeNoteModal()" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium">Save Note</button>
+                </div>
+            </form>
         </div>
-    </footer>
+    </div>
+<!-- MODAL 2: ADD / EDIT NOTE -->
+    <div id="note-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 id="modal-note-title" class="font-bold text-lg">New Sticky Note</h3>
+                <button onclick="closeNoteModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <form id="note-form" onsubmit="saveNote(event)" class="space-y-4">
+                <input type="hidden" id="note-id">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Note Title</label>
+                    <input type="text" id="note-title-input" required placeholder="Quick title..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                </div>
 
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Color Tag</label>
+                    <div class="flex gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="yellow" checked class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-amber-100 border-2 border-amber-300 peer-checked:ring-2 peer-checked:ring-amber-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="blue" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-sky-100 border-2 border-sky-300 peer-checked:ring-2 peer-checked:ring-sky-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="emerald" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 border-2 border-emerald-300 peer-checked:ring-2 peer-checked:ring-emerald-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="purple" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 border-2 border-purple-300 peer-checked:ring-2 peer-checked:ring-purple-500"></div>
+                        </label>
+                    </div>
+                </div>
 
-    <!-- JAVASCRIPT -->
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Content</label>
+                    <textarea id="note-content-input" rows="4" required placeholder="Type your note content here..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none custom-scrollbar"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeNoteModal()" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium">Save Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Mobile navigation
-        const menuBtn = document.getElementById("menuBtn");
-        const navLinks = document.getElementById("navLinks");
+        // --- DATA STATE ---
+        let tasks = JSON.parse(localStorage.getItem('sf_tasks')) || [
+            { id: '1', title: 'Complete Physics Lab Report', category: 'Homework', priority: 'High', deadline: '2026-10-02', desc: 'Verify findings from experiment 4 and plot charts.', completed: false },
+            { id: '2', title: 'Study for Midterm History Exam', category: 'Exam Prep', priority: 'High', deadline: '2026-10-05', desc: 'Focus on chapters 3 to 7.', completed: true },
+            { id: '3', title: 'Group CS Project Architecture', category: 'Project', priority: 'Medium', deadline: '2026-10-10', desc: 'Outline database schema and frontend layout.', completed: false }
+        ];
 
-        menuBtn.addEventListener("click", function () {
-            navLinks.classList.toggle("active");
+        let goals = JSON.parse(localStorage.getItem('sf_goals')) || [
+            { id: '1', text: 'Solve 10 Math Practice Problems', completed: true },
+            { id: '2', text: 'Read 1 Chapter of Biology', completed: false }
+        ];
 
-            if (navLinks.classList.contains("active")) {
-                menuBtn.textContent = "✕";
-            } else {
-                menuBtn.textContent = "☰";
-            }
-        });
+        let notes = JSON.parse(localStorage.getItem('sf_notes')) || [
+            { id: '1', title: 'Exam Formulas', content: 'E = mc^2\nF = ma\nPV = nRT', color: 'yellow', date: '2026-09-25' },
+            { id: '2', title: 'Library Book Returns', content: 'Return Physics Vol 2 before Friday afternoon.', color: 'blue', date: '2026-09-26' }
+        ];
 
-        // Close mobile menu after clicking a link
-        document.querySelectorAll(".nav-links a").forEach(link => {
-            link.addEventListener("click", () => {
-                navLinks.classList.remove("active");
-                menuBtn.textContent = "☰";
+    <!-- MODAL 2: ADD / EDIT NOTE -->
+    <div id="note-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 id="modal-note-title" class="font-bold text-lg">New Sticky Note</h3>
+                <button onclick="closeNoteModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <form id="note-form" onsubmit="saveNote(event)" class="space-y-4">
+                <input type="hidden" id="note-id">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Note Title</label>
+                    <input type="text" id="note-title-input" required placeholder="Quick title..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Color Tag</label>
+                    <div class="flex gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="yellow" checked class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-amber-100 border-2 border-amber-300 peer-checked:ring-2 peer-checked:ring-amber-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="blue" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-sky-100 border-2 border-sky-300 peer-checked:ring-2 peer-checked:ring-sky-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="emerald" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 border-2 border-emerald-300 peer-checked:ring-2 peer-checked:ring-emerald-500"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="note-color" value="purple" class="peer sr-only">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 border-2 border-purple-300 peer-checked:ring-2 peer-checked:ring-purple-500"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Content</label>
+                    <textarea id="note-content-input" rows="4" required placeholder="Type your note content here..." class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none custom-scrollbar"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeNoteModal()" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700">Cancel</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium">Save Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA STATE ---
+        let tasks = JSON.parse(localStorage.getItem('sf_tasks')) || [
+            { id: '1', title: 'Complete Physics Lab Report', category: 'Homework', priority: 'High', deadline: '2026-10-02', desc: 'Verify findings from experiment 4 and plot charts.', completed: false },
+            { id: '2', title: 'Study for Midterm History Exam', category: 'Exam Prep', priority: 'High', deadline: '2026-10-05', desc: 'Focus on chapters 3 to 7.', completed: true },
+            { id: '3', title: 'Group CS Project Architecture', category: 'Project', priority: 'Medium', deadline: '2026-10-10', desc: 'Outline database schema and frontend layout.', completed: false }
+        ];
+
+        let goals = JSON.parse(localStorage.getItem('sf_goals')) || [
+            { id: '1', text: 'Solve 10 Math Practice Problems', completed: true },
+            { id: '2', text: 'Read 1 Chapter of Biology', completed: false }
+        ];
+
+        let notes = JSON.parse(localStorage.getItem('sf_notes')) || [
+            { id: '1', title: 'Exam Formulas', content: 'E = mc^2\nF = ma\nPV = nRT', color: 'yellow', date: '2026-09-25' },
+            { id: '2', title: 'Library Book Returns', content: 'Return Physics Vol 2 before Friday afternoon.', color: 'blue', date: '2026-09-26' }
+        ];
+
+        // --- NAVIGATION ---
+        function switchTab(tab) {
+            ['dashboard', 'tasks', 'goals', 'notes'].forEach(t => {
+                const view = document.getElementById(`view-${t}`);
+                const nav = document.getElementById(`nav-${t}`);
+                if (t === tab) {
+                    view.classList.remove('hidden');
+                    nav.className = "nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all bg-sky-50 dark:bg-sky-950/50 text-sky-600 dark:text-sky-400";
+                } else {
+                    view.classList.add('hidden');
+                    nav.className = "nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50";
+                }
             });
-        });
+        }
 
+        // --- DARK MODE SWITCHER ---
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+        document.getElementById('themeToggleDesktop').addEventListener('click', toggleTheme);
+        document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
 
-        // Contact form validation
-        const form = document.getElementById("contactForm");
+        // --- PERSISTENCE ---
+        function saveData() {
+            localStorage.setItem('sf_tasks', JSON.stringify(tasks));
+            localStorage.setItem('sf_goals', JSON.stringify(goals));
+            localStorage.setItem('sf_notes', JSON.stringify(notes));
+            updateDashboardStats();
+        }
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
+        // --- TASK FUNCTIONS ---
+        function renderTasks() {
+            const container = document.getElementById('tasks-container');
+            const search = document.getElementById('task-search').value.toLowerCase();
+            const catFilter = document.getElementById('task-filter-category').value;
+            const prioFilter = document.getElementById('task-filter-priority').value;
 
-            const name = document.getElementById("name").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const message = document.getElementById("message").value.trim();
+            const filtered = tasks.filter(task => {
+                const matchesSearch = task.title.toLowerCase().includes(search) || task.desc.toLowerCase().includes(search);
+                const matchesCat = catFilter === 'All' || task.category === catFilter;
+                const matchesPrio = prioFilter === 'All' || task.priority === prioFilter;
+                return matchesSearch && matchesCat && matchesPrio;
+            });
 
-            const nameError = document.getElementById("nameError");
-            const emailError = document.getElementById("emailError");
-            const messageError = document.getElementById("messageError");
-            const successMessage = document.getElementById("success-message");
-
-            nameError.textContent = "";
-            emailError.textContent = "";
-            messageError.textContent = "";
-            successMessage.textContent = "";
-
-            let valid = true;
-
-            if (name === "") {
-                nameError.textContent = "Please enter your name.";
-                valid = false;
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-folder-open text-4xl mb-2 block"></i>
+                        <p class="text-sm">No tasks found matching your filters.</p>
+                    </div>
+                `;
+                return;
             }
 
-            const emailPattern =
-                /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+            container.innerHTML = filtered.map(t => {
+                const priorityColors = {
+                    High: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-400',
+                    Medium: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400',
+                    Low: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300'
+                };
 
-            if (email === "") {
-                emailError.textContent = "Please enter your email.";
-                valid = false;
-            } else if (!emailPattern.test(email)) {
-                emailError.textContent = "Please enter a valid email.";
-                valid = false;
+                return `
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all flex flex-col justify-between ${t.completed ? 'opacity-70' : ''}">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-lg ${priorityColors[t.priority]}">${t.priority} Priority</span>
+                                <span class="text-xs font-medium text-slate-400 flex items-center gap-1">
+                                    <i class="fa-regular fa-calendar"></i> ${t.deadline}
+                                </span>
+                            </div>
+                            <div class="flex items-start gap-3 mb-2">
+                                <button onclick="toggleTask('${t.id}')" class="mt-0.5 text-lg text-slate-300 dark:text-slate-600 hover:text-emerald-500 transition-colors">
+                                    <i class="fa-solid ${t.completed ? 'fa-circle-check text-emerald-500' : 'fa-circle'}"></i>
+                                </button>
+                                <h4 class="font-bold text-slate-800 dark:text-slate-100 ${t.completed ? 'line-through text-slate-400 dark:text-slate-500' : ''}">${t.title}</h4>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 pl-7 line-clamp-2">${t.desc || 'No additional details.'}</p>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-700/60 text-xs">
+                            <span class="px-2 py-0.5 rounded bg-sky-50 text-sky-600 dark:bg-sky-950/40 dark:text-sky-400 font-medium">${t.category}</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openTaskModal('${t.id}')" class="p-1.5 text-slate-400 hover:text-sky-600 transition-colors" title="Edit Task">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button onclick="deleteTask('${t.id}')" class="p-1.5 text-slate-400 hover:text-rose-600 transition-colors" title="Delete Task">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openTaskModal(id = null) {
+            const modal = document.getElementById('task-modal');
+            const titleEl = document.getElementById('modal-task-title');
+            
+            if (id) {
+                const t = tasks.find(x => x.id === id);
+                document.getElementById('task-id').value = t.id;
+                document.getElementById('task-title-input').value = t.title;
+                document.getElementById('task-category-input').value = t.category;
+                document.getElementById('task-priority-input').value = t.priority;
+                document.getElementById('task-deadline-input').value = t.deadline;
+                document.getElementById('task-desc-input').value = t.desc;
+                titleEl.textContent = 'Edit Task';
+            } else {
+                document.getElementById('task-form').reset();
+                document.getElementById('task-id').value = '';
+                document.getElementById('task-deadline-input').value = new Date().toISOString().split('T')[0];
+                titleEl.textContent = 'Add New Task';
+            }
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeTaskModal() {
+            const modal = document.getElementById('task-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveTask(e) {
+            e.preventDefault();
+            const id = document.getElementById('task-id').value;
+            const taskData = {
+                id: id || Date.now().toString(),
+                title: document.getElementById('task-title-input').value,
+                category: document.getElementById('task-category-input').value,
+                priority: document.getElementById('task-priority-input').value,
+                deadline: document.getElementById('task-deadline-input').value,
+                desc: document.getElementById('task-desc-input').value,
+                completed: id ? tasks.find(x => x.id === id).completed : false
+            };
+
+            if (id) {
+                const index = tasks.findIndex(x => x.id === id);
+                tasks[index] = taskData;
+            } else {
+                tasks.push(taskData);
             }
 
-            if (message === "") {
-                messageError.textContent = "Please enter your message.";
-                valid = false;
-            } else if (message.length < 10) {
-                messageError.textContent =
-                    "Message must contain at least 10 characters.";
-                valid = false;
+            saveData();
+            renderTasks();
+            closeTaskModal();
+        }
+
+        function toggleTask(id) {
+            const task = tasks.find(x => x.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveData();
+                renderTasks();
+            }
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(x => x.id !== id);
+            saveData();
+            renderTasks();
+        }
+
+        // --- GOAL FUNCTIONS ---
+        function renderGoals() {
+            const container = document.getElementById('goals-list');
+            const badge = document.getElementById('goals-progress-badge');
+            const completedCount = goals.filter(g => g.completed).length;
+
+            badge.textContent = `${completedCount} / ${goals.length} Completed`;
+
+            if (goals.length === 0) {
+                container.innerHTML = `<p class="text-sm text-slate-400 italic py-4 text-center">No focus goals added for today yet.</p>`;
+                return;
             }
 
-            if (valid) {
-                successMessage.textContent =
-                    "Thank you! Your message has been submitted.";
+            container.innerHTML = goals.map(g => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 hover:bg-slate-100 dark:hover:bg-slate-700/70 transition-all">
+                    <label class="flex items-center gap-3 cursor-pointer flex-1">
+                        <input type="checkbox" ${g.completed ? 'checked' : ''} onchange="toggleGoal('${g.id}')" class="w-4 h-4 text-sky-600 rounded border-slate-300 focus:ring-sky-500">
+                        <span class="text-sm font-medium ${g.completed ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-700 dark:text-slate-200'}">${g.text}</span>
+                    </label>
+                    <button onclick="deleteGoal('${g.id}')" class="text-slate-400 hover:text-rose-500 p-1 text-xs">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
 
-                form.reset();
+        function addGoal() {
+            const input = document.getElementById('new-goal-input');
+            const val = input.value.trim();
+            if (!val) return;
+
+            goals.push({ id: Date.now().toString(), text: val, completed: false });
+            input.value = '';
+            saveData();
+            renderGoals();
+        }
+
+        function toggleGoal(id) {
+            const goal = goals.find(g => g.id === id);
+            if (goal) {
+                goal.completed = !goal.completed;
+                saveData();
+                renderGoals();
             }
-        });
+        }
+
+        function deleteGoal(id) {
+            goals = goals.filter(g => g.id !== id);
+            saveData();
+            renderGoals();
+        }
+
+        // --- NOTES FUNCTIONS ---
+        function renderNotes() {
+            const container = document.getElementById('notes-container');
+
+            const colorMap = {
+                yellow: 'bg-amber-50 border-amber-200 dark:bg-amber-950/20 dark:border-amber-800/40',
+                blue: 'bg-sky-50 border-sky-200 dark:bg-sky-950/20 dark:border-sky-800/40',
+                emerald: 'bg-emerald-50 border-emerald-200 dark:bg-emerald-950/20 dark:border-emerald-800/40',
+                purple: 'bg-purple-50 border-purple-200 dark:bg-purple-950/20 dark:border-purple-800/40'
+            };
+
+            if (notes.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-note-sticky text-4xl mb-2 block"></i>
+                        <p class="text-sm">No notes saved yet. Click "New Sticky Note" to write one.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = notes.map(n => `
+                <div class="rounded-2xl p-5 border shadow-sm flex flex-col justify-between ${colorMap[n.color]} transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-base">${n.title}</h4>
+                            <span class="text-[10px] text-slate-400">${n.date}</span>
+                        </div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">${n.content}</p>
+                    </div>
+                    <div class="flex justify-end gap-2 pt-4 mt-2 border-t border-slate-200/40 dark:border-slate-700/40">
+                        <button onclick="openNoteModal('${n.id}')" class="p-1 text-slate-400 hover:text-sky-600 text-xs">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteNote('${n.id}')" class="p-1 text-slate-400 hover:text-rose-600 text-xs">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openNoteModal(id = null) {
+            const modal = document.getElementById('note-modal');
+            const titleEl = document.getElementById('modal-note-title');
+
+            if (id) {
+                const n = notes.find(x => x.id === id);
+                document.getElementById('note-id').value = n.id;
+                document.getElementById('note-title-input').value = n.title;
+                document.getElementById('note-content-input').value = n.content;
+                const radio = document.querySelector(`input[name="note-color"][value="${n.color}"]`);
+                if (radio) radio.checked = true;
+                titleEl.textContent = 'Edit Sticky Note';
+            } else {
+                document.getElementById('note-form').reset();
+                document.getElementById('note-id').value = '';
+                titleEl.textContent = 'New Sticky Note';
+            }
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeNoteModal() {
+            const modal = document.getElementById('note-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveNote(e) {
+            e.preventDefault();
+            const id = document.getElementById('note-id').value;
+            const selectedColor = document.querySelector('input[name="note-color"]:checked')?.value || 'yellow';
+
+            const noteData = {
+                id: id || Date.now().toString(),
+                title: document.getElementById('note-title-input').value,
+                content: document.getElementById('note-content-input').value,
+                color: selectedColor,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            if (id) {
+                const idx = notes.findIndex(x => x.id === id);
+                notes[idx] = noteData;
+            } else {
+                notes.push(noteData);
+            }
+
+            saveData();
+            renderNotes();
+            closeNoteModal();
+        }
+
+        function deleteNote(id) {
+            notes = notes.filter(x => x.id !== id);
+            saveData();
+            renderNotes();
+        }
+
+        // --- DASHBOARD REAL-TIME STATS ---
+        function updateDashboardStats() {
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.completed).length;
+            const pending = total - completed;
+            const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('stat-total-tasks').textContent = total;
+            document.getElementById('stat-completed-tasks').textContent = completed;
+            document.getElementById('stat-pending-tasks').textContent = pending;
+            document.getElementById('stat-rate').textContent = `${rate}%`;
+
+            document.getElementById('dashboard-progress-text').textContent = `${rate}% Completed`;
+            document.getElementById('dashboard-progress-bar').style.width = `${rate}%`;
+// Category Counts
+            const categories = ['Homework', 'Project', 'Exam Prep', 'Personal'];
+            document.getElementById('cat-count-homework').textContent = tasks.filter(t => t.category === 'Homework').length;
+            document.getElementById('cat-count-project').textContent = tasks.filter(t => t.category === 'Project').length;
+            document.getElementById('cat-count-exam').textContent = tasks.filter(t => t.category === 'Exam Prep').length;
+            document.getElementById('cat-count-personal').textContent = tasks.filter(t => t.category === 'Personal').length;
+
+            // Urgent Deadlines Widget
+            const urgentList = document.getElementById('urgent-deadlines-list');
+            const pendingTasks = tasks.filter(t => !t.completed).sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 4);
+
+            if (pendingTasks.length === 0) {
+                urgentList.innerHTML = `<p class="text-xs text-slate-400 italic py-2">No pending task deadlines!</p>`;
+            } else {
+                urgentList.innerHTML = pendingTasks.map(t => `
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700/50 text-xs">
+                        <div class="truncate mr-2">
+                            <p class="font-semibold text-slate-800 dark:text-slate-200 truncate">${t.title}</p>
+                            <span class="text-[10px] text-slate-400">${t.category}</span>
+                        </div>
+                        <span class="px-2 py-1 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 font-medium shrink-0">
+                            ${t.deadline}
+                        </span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = function () {
+            initTheme();
+            renderTasks();
+            renderGoals();
+            renderNotes();
+            updateDashboardStats();
+        };
     </script>
-
 </body>
 </html>
-```

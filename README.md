@@ -1,2 +1,2 @@
-# skillzeno internship
-responsive professional portfolio
+# skillzeno internship task2
+interactive student productivity dashboard
