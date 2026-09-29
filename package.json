@@ -1,3 +1,9 @@
-npm create vite@latest client -- --template react
-cd client
-npm install
+mkdir server
+
+cd server
+
+npm init -y
+
+npm install express mongoose cors dotenv bcryptjs jsonwebtoken
+
+npm install --save-dev nodemon
